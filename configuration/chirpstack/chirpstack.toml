@@ -53,6 +53,28 @@
   # instance.
   cluster=false
 
+[gateway]
+
+  # CA certificate and key file (optional).
+  #
+  # If setting the CA certificate and key file options, ChirpStack 
+  # will generate client certificates which can be used by the gateway for
+  # authentication and authorization. The Common Name of the certificate will
+  # be set to the Gateway ID.
+  ca_key="/etc/chirpstack-gateway-bridge-ws/certs/tls_key.pem"
+  ca_cert="/etc/chirpstack-gateway-bridge-ws/certs/tls_cert.pem"
+
+  # Certificate lifetime.
+  #
+  # This defines how long (after generating) the certificate remains valid.
+  client_cert_lifetime="11months 30days 3h 50m 24s"
+
+  # Allow unknown gateways.
+  #
+  # If set to true, then uplinks received from gateways not configured in
+  # ChirpStack will be allowed.
+  allow_unknown_gateways=false
+
 
 # Network related configuration.
 [network]
@@ -65,20 +87,6 @@
   # Multiple regions can be enabled simultaneously. Each region must match
   # the 'name' parameter of the region configuration in '[[regions]]'.
   enabled_regions=[
-    "as923",
-    "as923_2",
-    "as923_3",
-    "as923_4",
-    "au915_0",
-    "cn470_10",
-    "cn779",
-    "eu433",
-    "eu868",
-    "in865",
-    "ism2400",
-    "kr920",
-    "ru864",
-    "us915_0",
     "us915_1",
   ]
 
