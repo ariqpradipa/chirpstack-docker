@@ -35,7 +35,7 @@ services:
     ports:
       - 3001:3001/tcp
     volumes:
-      - ./configuration/chirpstack-gateway-ws:/etc/chirpstack-gateway-bridge
+      - ./configuration/chirpstack-gateway-ws:/etc/chirpstack-gateway-bridge-ws
     depends_on:
       - mosquitto
 
