@@ -1,6 +1,30 @@
 version: "3"
 
 services:
+
+  postgres:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    volumes:
+      - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
+      - postgresqldata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+    volumes:
+      - ./configuration/mosquitto:/mosquitto/config
+
   chirpstack:
     image: chirpstack/chirpstack:4
     command: -c /etc/chirpstack
@@ -47,29 +71,6 @@ services:
       - 8090:8090
     depends_on:
       - chirpstack
-
-  postgres:
-    image: postgres:14-alpine
-    restart: unless-stopped
-    volumes:
-      - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
-      - postgresqldata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=root
-
-  redis:
-    image: redis:7-alpine
-    restart: unless-stopped
-    volumes:
-      - redisdata:/data
-
-  mosquitto:
-    image: eclipse-mosquitto:2
-    restart: unless-stopped
-    ports:
-      - 1883:1883
-    volumes:
-      - ./configuration/mosquitto:/mosquitto/config
 
 volumes:
   postgresqldata:
